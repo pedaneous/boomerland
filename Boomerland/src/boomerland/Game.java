@@ -1,58 +1,54 @@
 package boomerland;
 
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-public class Game extends Canvas implements Runnable {
+public class Game extends JPanel implements Runnable {
 
-	private JFrame f;
-	private final String TITLE = "Boomerland";
-	private final Dimension SIZE;
-	
+	private JFrame frame;
 	private Thread thread;
 	private boolean running = false;
 	
+	private String title;
+	private int WIDTH = 800;
+	private int HEIGHT = 600;
+	
 	public int FRAME_RATE = 0;
-	public int MAX_FRAME_RATE = 60;
+	
+	BufferedImage image;
+	Graphics imageGraphics;
 	
 	public Game() {
-		SIZE = new Dimension(800, 600);
-		f = new JFrame(TITLE);
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(SIZE);
-		f.add(this);
-		f.pack();
-		f.setResizable(false);
-		f.setLocationRelativeTo(null);
-		f.setVisible(true);
+		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+		imageGraphics = image.createGraphics();
 	}
 	
-	public synchronized void start() {
-		if(running) return;
-		running = true;
-		thread = new Thread(this);
-		thread.start();
+	public void addNotify() {
+		super.addNotify();
+		if(thread == null) {
+			thread = new Thread(this);
+			thread.start();
+			running = true;
+		}
 	}
 	
 	public synchronized void stop() {
-		if(!running) return;
-		running = false;
-		try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		if(running == true) {
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	public void run() {
 		long last = System.nanoTime();
 		long timer = System.currentTimeMillis();
-		final double ns = 1000000000D / MAX_FRAME_RATE;
+		final double ns = 1000000000D / 60;
 		double delta = 0;
 		int frames = 0;
 		while(running) {
@@ -73,23 +69,8 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 	
-	public void update() {
-		
-	}
-	
-	public void render() {
-		BufferStrategy bs = this.getBufferStrategy();
-		if(bs == null) {
-			this.createBufferStrategy(3);
-			return;
-		}
-		Graphics g = bs.getDrawGraphics();
-		
-		g.setColor(Color.black);
-		g.fillRect(0, 0, SIZE.width, SIZE.height);
-		
-		g.dispose();
-		bs.show();
+	public static void main(String[] args) {
+		new Game();
 	}
 	
 }
