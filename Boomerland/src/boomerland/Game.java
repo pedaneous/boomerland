@@ -3,11 +3,12 @@ package boomerland;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import boomerland.GameState.GameStateManager;
 
 public class Game extends JPanel implements Runnable {
 
@@ -16,20 +17,19 @@ public class Game extends JPanel implements Runnable {
 	private boolean running = false;
 	
 	private String title = "Boomerland Testing";
-	private int WIDTH = 800;
-	private int HEIGHT = 600;
+	public int WIDTH = 320, HEIGHT = 240, SCALE = 2;
 	
 	public int FRAME_RATE = 0;
 	
 	BufferedImage image;
 	Graphics imageGraphics;
 	
-	int x = 0, y = 0;
+	private GameStateManager gsm;
 	
 	public Game() {
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		imageGraphics = image.createGraphics();
-		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		this.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		frame = new JFrame(title);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setContentPane(this);
@@ -37,6 +37,7 @@ public class Game extends JPanel implements Runnable {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		gsm = new GameStateManager(this);
 		start();
 	}
 	
@@ -84,12 +85,13 @@ public class Game extends JPanel implements Runnable {
 	
 	private void render() {
 		Graphics g = this.getGraphics();
-		
+		g.setColor(Color.black);
+		g.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+		gsm.render(g);
 	}
 	
 	private void update() {
-		x += 1;
-		y += 1;
+		
 	}
 	
 	public static void main(String[] args) {
