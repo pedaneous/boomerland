@@ -84,11 +84,7 @@ public class Game extends JPanel implements Runnable {
 	
 	private void render() {
 		Graphics g = this.getGraphics();
-		imageGraphics.setColor(Color.black);
-		imageGraphics.fillRect(0, 0, 800, 600);
-		imageGraphics.setColor(Color.white);
-		imageGraphics.fillRect(x, y, 50, 50);
-		g.drawImage(image, 0, 0, null);
+		
 	}
 	
 	private void update() {
