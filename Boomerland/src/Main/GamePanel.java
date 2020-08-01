@@ -1,6 +1,8 @@
 package Main;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -11,7 +13,7 @@ import javax.swing.JPanel;
 import GameState.GameStateManager;
 
 @SuppressWarnings("serial")
-public class GamePanel extends JPanel implements Runnable, KeyListener {
+public class GamePanel extends JPanel implements Runnable {
 
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
@@ -74,6 +76,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	
 	public void draw() {
 		gsm.draw(g);
+		g.setColor(Color.green);
+		g.setFont(new Font("Arial", 10, 10));
+		g.drawString(FRAME_RATE + " fps", 0, HEIGHT-2);
 	}
 	
 	public void drawToScreen() {
@@ -82,19 +87,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		g2.dispose();
 	}
 
-	@Override
-	public void keyTyped(KeyEvent e) {
-		
-	}
-
-	@Override
 	public void keyPressed(KeyEvent e) {
 		gsm.keyPressed(e.getKeyCode());
 	}
-
-	@Override
+	
 	public void keyReleased(KeyEvent e) {
-		
+		gsm.keyPressed(e.getKeyCode());
 	}
 	
 }

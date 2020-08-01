@@ -1,7 +1,6 @@
 package GameState;
 
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import Main.GamePanel;
@@ -12,9 +11,11 @@ public class GameStateManager {
 	private int currentState = 0;
 	
 	public final static int MENU_STATE = 0;
+	public final static int LEVEL1_STATE = 1;
 	
 	public GameStateManager(GamePanel gp) {
-		gameStates.add(new TitleMenu());
+		gameStates.add(new TitleMenu(this));
+		gameStates.add(new Level1State(this));
 	}
 	
 	public void draw(Graphics2D g) {
@@ -25,8 +26,6 @@ public class GameStateManager {
 		gameStates.get(currentState).update();
 	}
 	
-	public void setState(int i) {currentState = i;}
-	
 	public void keyPressed(int key) {
 		gameStates.get(currentState).keyPressed(key);
 	}
@@ -34,5 +33,9 @@ public class GameStateManager {
 	public void keyReleased(int key) {
 		gameStates.get(currentState).keyReleased(key);
 	}
+	
+	public void setState(int i) {currentState = i;}
+	
+	
 	
 }
