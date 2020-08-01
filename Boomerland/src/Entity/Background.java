@@ -27,6 +27,9 @@ public class Background {
 	
 	public void update() {
 		x += dx;
+		if(x < -GamePanel.WIDTH) {
+			x = 0;
+		}
 	}
 	
 	public void setVector(int x) {dx = x;}
