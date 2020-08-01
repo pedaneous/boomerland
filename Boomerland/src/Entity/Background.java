@@ -30,6 +30,9 @@ public class Background {
 		if(x < -GamePanel.WIDTH) {
 			x = 0;
 		}
+		if(x > GamePanel.WIDTH) {
+			x = 0;
+		}
 	}
 	
 	public void setVector(int x) {dx = x;}
