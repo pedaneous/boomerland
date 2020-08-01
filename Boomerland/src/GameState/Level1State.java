@@ -7,6 +7,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import Entity.Background;
+import TileMap.Tile;
+import TileMap.TileMap;
 
 public class Level1State extends GameState {
 	
@@ -16,6 +18,8 @@ public class Level1State extends GameState {
 	
 	private BufferedImage grass;
 	
+	private TileMap tileMap;
+	
 	public Level1State(GameStateManager gsm) {
 		this.gsm = gsm;
 		try {
@@ -23,13 +27,16 @@ public class Level1State extends GameState {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		bg.setVector(-1);
-		
+		tileMap = new TileMap(30);
+		tileMap.loadTiles("/grasstileset.gif");
+		tileMap.loadMap("/level1-1.map");
+		tileMap.setPosition(0, 0);
 	}
 	
 	@Override
 	public void draw(Graphics2D g) {
 		bg.draw(g);
+		tileMap.draw(g);
 	}
 
 	@Override
