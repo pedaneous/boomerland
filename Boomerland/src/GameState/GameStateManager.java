@@ -27,12 +27,12 @@ public class GameStateManager {
 	
 	public void setState(int i) {currentState = i;}
 	
-	public void keyPressed(KeyEvent e) {
-		gameStates.get(currentState).keyPressed(e);
+	public void keyPressed(int key) {
+		gameStates.get(currentState).keyPressed(key);
 	}
 	
-	public void keyReleased(KeyEvent e) {
-		gameStates.get(currentState).keyReleased(e);
+	public void keyReleased(int key) {
+		gameStates.get(currentState).keyReleased(key);
 	}
 	
 }

@@ -38,12 +38,12 @@ public class TitleMenu extends GameState {
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(int key) {
 		
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(int key) {
 		
 	}
 

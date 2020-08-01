@@ -2,6 +2,8 @@ package Main;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
@@ -9,7 +11,7 @@ import javax.swing.JPanel;
 import GameState.GameStateManager;
 
 @SuppressWarnings("serial")
-public class GamePanel extends JPanel implements Runnable {
+public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 	public static final int WIDTH = 320;
 	public static final int HEIGHT = 240;
@@ -78,6 +80,21 @@ public class GamePanel extends JPanel implements Runnable {
 		Graphics2D g2 = (Graphics2D) getGraphics();
 		g2.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		g2.dispose();
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		gsm.keyPressed(e.getKeyCode());
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
 	}
 	
 }
